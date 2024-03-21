@@ -1,0 +1,43 @@
+<html>
+  <body>
+    <div>
+      <div class="row">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title">Devices</h4>
+            </div>
+            <div class="card-body table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="text-center">ID</th>
+                    <th>Serial</th>
+                    <th>Key</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% clusters.forEach(function(client){ %>
+                  <tr
+                    class="ClientListing text-center"
+                    data-client-id="<%= client.client_id %>"
+                    data-admin-id="<%= admin.admin_id %>"
+                  >
+                    <td><%= client.id %></td>
+                    <td>
+                      <a href="../client_listing/<%= client.id %>"
+                        ><%= client.client_serial %></a
+                      >
+                    </td>
+                    <td><%= client.client_key %></td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

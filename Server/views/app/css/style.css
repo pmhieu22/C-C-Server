@@ -1,0 +1,276 @@
+#sb-site {
+  margin-left: 280px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a2035;
+  background-attachment: fixed;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.header {
+  text-align: center;
+}
+
+
+
+@-webkit-keyframes my {
+  0% {
+    color: #0af84538;
+  }
+
+  50% {
+    color: rgb(9, 37, 70);
+  }
+
+  100% {
+    color: #0af84538;
+  }
+}
+
+@-moz-keyframes my {
+  0% {
+    color: #0af84538;
+  }
+
+  50% {
+    color: rgb(9, 37, 70);
+  }
+
+  100% {
+    color: #0af84538;
+  }
+}
+
+@-o-keyframes my {
+  0% {
+    color: #0af84538;
+  }
+
+  50% {
+    color: rgb(9, 37, 70)
+  }
+
+  100% {
+    color: #0af84538;
+  }
+}
+
+@keyframes my {
+  0% {
+    color: #0af84538;
+  }
+
+  50% {
+    color: rgb(9, 37, 70)
+  }
+
+  100% {
+    color: #0af84538;
+  }
+}
+
+.test {
+  font-weight: bold;
+  -webkit-animation: my 700ms infinite;
+  -moz-animation: my 700ms infinite;
+  -o-animation: my 700ms infinite;
+  animation: my 700ms infinite;
+
+}
+
+.mainMenu {
+  margin: 0px -20px 20px -20px;
+}
+
+.menuLabel {
+  font-size: 16px;
+  background: #25a6f18f;
+}
+
+/* .menuLabel{
+  font-size: 16px;
+  background: #25a6f18f;
+} */
+.logo {
+  width: 300px;
+  margin: 10px 0px -10px 0px;
+}
+
+.tagline {
+  color: white;
+}
+
+.clientListing {
+  margin: 0px 0px 20px 0px;
+  padding: 10px;
+}
+
+.clientListingHeader {
+  overflow: auto;
+  border: 1px solid #2e2f30;
+  font-size: 20px;
+  color: rgb(59, 59, 59);
+  background: rgb(165, 180, 169);
+  padding: 10px;
+}
+
+.clientListingRow {
+  font-size: 16px;
+  border-bottom: 1px solid #3498db;
+  padding: 8px 0px 8px 0px;
+  color: white;
+}
+
+.iconOnline {
+  height: 22px;
+  width: 22px;
+}
+
+.textCentred {
+  text-align: center;
+}
+
+.consoleLogs {
+  border: 1px solid #2e2f30;
+  background: #141414;
+  margin: 0px 0px 20px 0px;
+  padding: 10px;
+}
+
+.consoleLogsHeader {
+  overflow: auto;
+  border: 1px solid #2e2f30;
+  font-size: 20px;
+  color: rgb(59, 59, 59);
+  background: rgb(165, 180, 169);
+  padding: 10px;
+}
+
+.remoteShell {
+  overflow: auto;
+  height: 345px;
+  border: 1px solid #2e2f30;
+  padding: 5px;
+  background: #001d3b;
+  font-size: 12px;
+  color: bisque;
+}
+
+.liveLogs {
+  overflow: hidden;
+  /* height: 400px; */
+  border-radius: 5px;
+  background-color: black;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.container {
+  /* position: relative; */
+  /* width: calc(100% - 20%) !important; */
+  margin: 5% 0;
+  padding: 5px;
+  background: rgb(59, 59, 59);
+}
+
+.logs-success {
+  color: #2ecc71 !important;
+}
+
+.logs-info {
+  color: #3498db !important;
+}
+
+.logs-warning {
+  color: #e67e22 !important;
+}
+
+.logs-danger {
+  color: #e74c3c !important;
+}
+
+.glyphLeft {
+  float: left;
+  margin-top: 2px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+#menu {
+  display: none;
+}
+
+/* Dropdown Button */
+.dropbtn {
+
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1d3d3;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.user-content {
+  display: none;
+  position: absolute;
+  background-color: #0a6a11;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgb(255, 255, 255);
+  z-index: 1;
+}
+
+.user-content a {
+  color: rgb(255, 254, 254);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.user-content a:hover {
+  background-color: rgb(202, 173, 153)
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: rgb(202, 173, 153)
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: block !important;
+}

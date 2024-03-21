@@ -1,0 +1,130 @@
+
+<% include ../menu_client %>
+
+<div
+    class="collapse"
+    id="addClosedClient"
+    style="
+      padding: 15 20;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <form
+      action=""
+      method="post"
+      style="
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 18px;
+      "
+    >
+      <div class="row">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+          <label htmlFor="mail">Serial:</label>
+          <input
+            name="serial"
+            type="text"
+            class="form-control"
+            placeholder="Enter Serial"
+          />
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+          <label htmlFor="mail">Key: </label>
+          <input
+            name="key"
+            type="text"
+            class="form-control"
+            placeholder="Enter Key"
+          />
+        </div>
+      </div>
+    <button
+        type="submit"
+        class="btn"
+        style="font-size: 12px; background-color: #f5700c"
+      >
+        Add new client
+    </button>
+  </form>
+</div>
+
+<form 
+style="
+  padding: 15 20;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+" method="post">
+  <div class="row" style="color: white; font-size: 14;">
+    <div class="form-group col-lg-6 col-md-6 col-sm-6" style=" display: flex; flex-direction: column; gap: 15px;">
+      <div>
+        <label htmlFor="hostname" style="width: 22%; font-weight: 600;">Hostname:</label>
+        <span><%= client.client_hostname %></span>
+      </div>
+      <div>
+        <label htmlFor="ipAddr" style="width: 22%; font-weight: 600;">Ip Address:</label>
+        <span><%= client.client_ip %></span>
+      </div>
+      <div>
+        <label htmlFor="osSys" style="width: 22%; font-weight: 600;">OS System:</label>
+        <span><%= client.client_os %></span>
+      </div>
+      <div>
+        <label htmlFor="archOS" style="width: 22%; font-weight: 600;">Arch OS System:</label>
+        <span><%= client.client_os_version %></span>
+      </div>
+      <div>
+        <label htmlFor="clientVer" style="width: 22%; font-weight: 600;">Client Version:</label>
+        <span><%= client.client_version %></span>
+      </div>
+    </div>
+    <div class="form-group col-lg-6 col-md-6 col-sm-6" style=" display: flex; flex-direction: column; gap: 15px;">
+      <div>
+        <label htmlFor="country" style="width: 22%; font-weight: 600;">Country:</label>
+        <span><%= client.client_country %></span>
+      </div>
+      <div>
+        <label htmlFor="priAcc" style="width: 22%; font-weight: 600;">Privileges Access:</label>
+        <span><%= client.client_privilege_access %></span>
+      </div>
+      <div>
+        <label htmlFor="socket" style="width: 22%; font-weight: 600;">Socket:</label>
+        <span><%= client.client_socket %></span>
+      </div>
+      <div style="display: flex;">
+        <label htmlFor="online" style="width: 22%; font-weight: 600;">Online:</label>
+        <select class="form-control" name="active" style="width: 60%;">
+          <option value="0" <% if(client.client_active == 0) { %> selected <% } %>>NO</option>
+          <option value="1" <% if(client.client_active == 1) { %> selected <% } %>>YES</option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12" style="display: flex; margin-left: 15px; gap: 12px;">
+        <button type="submit" class="form-control btn" style="font-size: 12px; background-color: green; text-decoration: none; padding: 12;" name="">Update</button>
+        <a href="../client_delete/<%= client.client_id %>"><span type="submit" class="form-control btn" style="font-size: 12px; background-color: red; border: none; text-decoration: none; padding: 12;" name=""  value="Delete"  style="width:55px;float:right;" onclick="return(confirm('Are you sure ?'));">Delete</span></a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+
+  function init_client_dashboard(socket, data){
+
+    /* ---------- FRONTEND ---------- */
+
+    $.slidebars({
+    siteClose: true, // true or false
+    disableOver: false, // integer or false
+    hideControlClasses: false, // true or false
+    scrollLock: true // true or false
+    });
+
+  }
+
+</script>

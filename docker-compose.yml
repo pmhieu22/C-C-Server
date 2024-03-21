@@ -1,0 +1,63 @@
+version: '3.3'
+services:
+  db-cc:
+    build:
+      context: ./Installer/docker
+      dockerfile: db.Dockerfile
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: Vkm#1234
+      MYSQL_DATABASE: noderatio
+      LANG: C.UTF-8
+    volumes:
+      - ./install/db_init:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
+    privileged: true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    networks:
+      sfapp_network:
+        aliases:
+          - db
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=db
+    networks:
+      sfapp_network:
+        aliases:
+          - phpmyadmin
+  # cc:
+  #   build:
+  #     context: ./Server
+  #     dockerfile: Dockerfile
+  #   container_name: cc
+  #   ports:
+  #     - 80:8080
+  #   depends_on:
+  #     - db-cc
+  #   networks:
+  #     sfapp_network:
+  #       aliases:
+  #         - webserver
+
+    # command: node server.js
+  # nginx:
+  #   image: nginx:latest
+  #   volumes:
+  #     - "./files:/files"
+  #     - "./Installer/conf:/etc/nginx/conf.d"
+  #   ports:
+  #     - "8080:80"
+networks:
+  sfapp_network:
+    driver: bridge

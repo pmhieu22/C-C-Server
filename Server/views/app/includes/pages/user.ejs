@@ -1,0 +1,266 @@
+<div style="margin: 0 8px">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-warning">
+          <h4 class="card-title">User managerment</h4>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  Full Name
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  User Name
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  Password
+                </th>
+                <th
+                  class="text-center"
+                  style="font-weight: bold; font-size: 14px"
+                >
+                  Level
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(function(user){ %>
+              <tr
+                class="ClientListing text-center"
+                data-client-id="<%= user.admin_pseudo %>"
+              >
+                <td><%= user.admin_pseudo %></td>
+                <td><%= user.admin_mail %></td>
+                <td><%= user.admin_password %></td>
+                <td>"Quản trị viên"</td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+          <button
+            type="button"
+            class="btn mr-2"
+            style="font-size: 12px; background-color: #f5700c"
+            data-toggle="collapse"
+            data-target="#addClosedClient"
+          >
+            Thêm mới
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="collapse"
+    id="addClosedClient"
+    style="
+      padding: 15 20;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <form
+      action=""
+      method="post"
+      style="
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 18px;
+      "
+    >
+      <div class="row">
+        <div
+          class="form-group col-lg-6 col-md-6 col-sm-6"
+          style="display: flex; flex-direction: column; gap: 15px"
+        >
+          <div>
+            <label htmlFor="mail">Mail:</label>
+            <input
+              name="admin_mail"
+              type="text"
+              class="form-control"
+              placeholder="Enter Mail"
+            />
+          </div>
+          <div>
+            <label htmlFor="passwd">Password:</label>
+            <input
+              name="admin_password"
+              type="password"
+              class="form-control"
+              placeholder="Enter Password"
+            />
+          </div>
+        </div>
+        <div
+          class="form-group col-lg-6 col-md-6 col-sm-6"
+          style="display: flex; flex-direction: column; gap: 15px"
+        >
+          <div>
+            <label htmlFor="fullname">Fullname:</label>
+            <input
+              name="fullname"
+              type="text"
+              class="form-control"
+              placeholder="Enter fullname"
+            />
+          </div>
+          <div>
+            <label htmlFor="authorize">Quyền:</label>
+            <div>
+              <select
+                name="level"
+                id="lever"
+                style="width: 100px; font-size: 14px; padding: 8px"
+              >
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn"
+        style="font-size: 12px; background-color: #f5700c"
+      >
+        Thêm mới user
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function init_user(socket, data) {
+      //...
+    }
+    function init_client_listing(socket, data) {
+      // Get online client on pagination change
+      $(".paginate_button").live("click", function () {
+        socket.emit("getNodeClientOnline");
+      });
+
+      // Log live client
+      socket.on("liveLogClient", function (text, type) {
+        var dateTime = new Date();
+        $("#liveLogClient").prepend(
+          "[" +
+            dateTime +
+            "] <span class='logs-" +
+            type +
+            "' style='color:black;padding:5px;'>" +
+            text +
+            "</span><br>"
+        );
+      });
+
+      // Send cmd to reverse shell for cloud
+
+      // Callback reverse shell cloud
+      socket.on("reverseShellCallbackCloud", function (data, type) {
+        if (type == "success") var logType = "logs-info";
+        if (type == "error") var logType = "logs-danger";
+        $("#shellCloud").append(
+          "<p class='logs-warning'>=======================================</p>"
+        );
+        $("#shellCloud").append("<p class='" + logType + "'>" + data + "</p>");
+        $("#shellCloud").scrollTop($("#shellCloud")[0].scrollHeight);
+      });
+
+      /* ---------- FRONTEND ---------- */
+
+      $.slidebars({
+        siteClose: true, // true or false
+        disableOver: false, // integer or false
+        hideControlClasses: false, // true or false
+        scrollLock: true, // true or false
+      });
+
+      // DataTbale client
+      $("#table_clients").DataTable({
+        responsive: true,
+        scrollX: true,
+        pageLength: 10,
+        order: [[0, "desc"]],
+        /*"language": {
+          "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/French.json"
+      }*/
+      });
+
+      // DataTbale logs
+      $("#table_logs").DataTable({
+        responsive: true,
+        scrollX: true,
+        pageLength: 5,
+        order: [[0, "desc"]],
+        /*"language": {
+          "url": "https://cdn.datatables.net/plug-ins/1.10.13/i18n/French.json"
+      }*/
+      });
+
+      $("#container-tableLogsWeb").hide();
+      $("#container-shellCloud").hide();
+
+      $("#btnLiveSocket").click(function () {
+        $("#container-liveLogClient").show();
+        $("#container-shellCloud").hide();
+        $("#container-tableLogsWeb").hide();
+        $("#titleLogs").html("Live socket");
+      });
+
+      $("#btnShellCloud").click(function () {
+        $("#container-liveLogClient").hide();
+        $("#container-shellCloud").show();
+        $("#container-tableLogsWeb").hide();
+        $("#titleLogs").html("Shell on Cloud");
+      });
+
+      $("#btnWebLogs").click(function () {
+        $("#container-liveLogClient").hide();
+        $("#container-shellCloud").hide();
+        $("#container-tableLogsWeb").show();
+        $("#titleLogs").html("Web Logs");
+      });
+
+      //$(".DataTables_scrollBody").niceScroll({cursorcolor:"#3498db"});
+      $(".remoteShell").niceScroll({ cursorcolor: "#3498db" });
+    }
+
+    /* When the user clicks on the button,
+  toggle between hiding and showing the dropdown content */
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+      document.getElementById("menu").classList.toggle("show");
+      document.getElementById("submenu").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches(".dropbtn")) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+  </script>
+</div>

@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <base
+      href="../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../app/"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>V486 C&C</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <!-- Sweet alert theme -->
+    <link rel="stylesheet" href="css/sweetalert.css.min.css" />
+    <!-- SideBar -->
+    <link rel="stylesheet" href="css/slidebars.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto mt-5">
+          <div class="card" style="background-color: #202940">
+            <div class="card-header">
+              <h3
+                class="text-center text-warning"
+                style="font-weight: 600 !important; font-size: 24px"
+              >
+                V486 C&C Server
+              </h3>
+            </div>
+            <div class="card-body">
+              <form
+                action=""
+                method="post"
+                style="
+                  display: flex;
+                  flex-wrap: nowrap;
+                  flex-direction: column;
+                  gap: 18px;
+                "
+              >
+                <div class="form-group">
+                  <label htmlFor="mail">Username</label>
+                  <input
+                    name="mail"
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Username"
+                  />
+                </div>
+                <div class="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input
+                    name="password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Enter Password"
+                    style="background-color: #202940"
+                  />
+                </div>
+                <button
+                  class="btn btn-warning btn-block"
+                  variant="outline-primary"
+                  type="submit"
+                  style="
+                    color: white;
+                    padding: 13 12 !important;
+                    font-size: 15;
+                    border-radius: 6px !important;
+                  "
+                >
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/slidebars.js"></script>
+    <script src="js/jquery.nicescroll.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".clientListing").niceScroll({ cursorcolor: "#3498db" });
+        $(".consoleLogs").niceScroll({ cursorcolor: "#3498db" });
+
+        $.slidebars({
+          siteClose: true, // true or false
+          disableOver: false, // integer or false
+          hideControlClasses: false, // true or false
+          scrollLock: true, // true or false
+        });
+      });
+    </script>
+  </body>
+</html>
